@@ -587,6 +587,43 @@
             </tr>
           </tbody>
         </table>
+
+        <h3 style="margin-top: 4rem; margin-bottom: 2rem; color: #2c3e50; text-align: center; font-size: 2rem;">Challenging Scenarios Showcase</h3>
+        <p style="text-align: center; color: #666; margin-bottom: 3rem; font-size: 1.1rem;">
+          Representative examples demonstrating the limitations of conventional cameras and the advantages of event-based sensing
+        </p>
+        
+        <div class="image-card" style="margin-bottom: 2rem;">
+          <img src="datasetshow.png" alt="PEOD dataset challenging scenarios showcase">
+          <div class="caption">
+            <strong>Challenging Scenarios from PEOD Dataset</strong>
+            These examples demonstrate sensor failure scenarios where conventional frame-based cameras struggle: <em>(Top and third rows)</em> Overexposure in high dynamic range scenes leading to complete information loss; <em>(Second row)</em> Motion blur from high-speed movement; <em>(Bottom row)</em> Extreme low-light conditions with severe underexposure. In contrast to the degraded RGB images, the event-based streams (left side of each pair) consistently preserve crucial structural details and object boundaries, enabling robust detection even under these extreme conditions. This showcases the complementary nature of the two modalities and the critical importance of multimodal fusion for all-weather perception systems.
+          </div>
+        </div>
+
+        <div class="feature-grid" style="margin-top: 3rem;">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-eye-slash"></i>
+            </div>
+            <h3 class="feature-title">Overexposure Resilience</h3>
+            <p>Event cameras maintain object visibility when RGB sensors saturate under bright lighting conditions</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h3 class="feature-title">Motion Blur Immunity</h3>
+            <p>High temporal resolution eliminates motion blur artifacts that degrade conventional camera performance</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-moon"></i>
+            </div>
+            <h3 class="feature-title">Low-Light Excellence</h3>
+            <p>Superior performance in extreme low-light where RGB cameras fail to capture meaningful information</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -879,15 +916,15 @@ cv2.waitKey(0)</code></pre>
         </p>
 
         <div class="highlight-box">
-          <p><strong>Status:</strong> Paper submitted to AAAI 2025 (currently under peer review)</p>
+          <p><strong>Status:</strong> Paper submitted to AAAI 2026 (currently under peer review)</p>
         </div>
 
         <div class="code-block">
-          <pre><code>@article{PEOD2025,
+          <pre><code>@article{PEOD2026,
   title     = {PEOD: Pixel-aligned High-Resolution Event-RGB Dataset for Challenging Object Detection},
   author    = {[Authors to be revealed upon acceptance]},
   journal   = {Proceedings of the AAAI Conference on Artificial Intelligence},
-  year      = {2025},
+  year      = {2026},
   note      = {Under review}
 }</code></pre>
         </div>
