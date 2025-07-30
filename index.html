@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEOD Dataset</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 20px 0;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+    .code-block {
+      background: #f8f8f8;
+      border: 1px solid #eaeaea;
+      padding: 10px;
+      font-family: "Courier New", monospace;
+      overflow-x: auto;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>PEOD: Pixel‑aligned RGB‑Event Object Detection Dataset</h1>
+  <p>
+    The <strong>PEOD dataset</strong> provides the first large‑scale multimodal benchmark designed to evaluate
+    object detection algorithms in challenging driving scenarios. By pairing high‑resolution
+    conventional images with temporally aligned event streams, PEOD allows researchers to
+    investigate how temporal contrast information can complement intensity measurements
+    under extreme lighting and motion.
+  </p>
+  <h2>Dataset Overview</h2>
+  <p>
+    PEOD comprises over <strong>120 fully synchronised driving sequences</strong>, yielding more than
+    <strong>72&nbsp;000</strong> paired frames and <strong>340&nbsp;000</strong> bounding boxes across six common road‑user
+    classes (car, bus, truck, two‑wheeler, three‑wheeler and person). All sequences are
+    recorded at <strong>1280&nbsp;×&nbsp;720</strong> resolution and 30&nbsp;Hz, with microsecond‑level synchronisation between
+    the RGB and event cameras. Approximately 60&nbsp;% of the sequences are captured in low‑light,
+    over‑exposed or high‑speed conditions, offering a comprehensive test bed for evaluating
+    robustness to illumination extremes and motion blur.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Subset</th>
+        <th>Frames</th>
+        <th>Bounding boxes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Training</td>
+        <td>~57&nbsp;000</td>
+        <td>270&nbsp;k</td>
+      </tr>
+      <tr>
+        <td>Test</td>
+        <td>~15&nbsp;000</td>
+        <td>70&nbsp;k</td>
+      </tr>
+      <tr>
+        <td><em>Total</em></td>
+        <td>72&nbsp;k</td>
+        <td>340&nbsp;k</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Benchmark Results</h2>
+  <p>
+    We evaluate a diverse suite of detectors on the PEOD dataset, including event‑only models,
+    RGB‑only models and fusion architectures that combine both modalities. The mean Average
+    Precision (mAP<sub>50:95</sub>) scores summarised below highlight the complementary nature of
+    events and frames: fusion approaches consistently outperform single‑sensor baselines on
+    challenging scenes.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Modality</th>
+        <th>Method</th>
+        <th>mAP<sub>50:95</sub></th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Event‑only</td>
+        <td>SMamba</td>
+        <td>22.9&nbsp;%</td>
+        <td>State‑space model; highest event accuracy</td>
+      </tr>
+      <tr>
+        <td>RGB‑only</td>
+        <td>YOLOv8</td>
+        <td>19.3&nbsp;%</td>
+        <td>Best performing frame‑based baseline</td>
+      </tr>
+      <tr>
+        <td>Fusion</td>
+        <td>EOLO</td>
+        <td>24.2&nbsp;%</td>
+        <td>High‑efficiency fusion network; top overall performer</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Usage Example</h2>
+  <p>
+    The dataset is organised into training and test splits. Each sample consists of a
+    synchronised RGB frame, an event stream and a set of bounding box annotations. Below
+    is a simple Python snippet demonstrating how to load an event stream and its
+    corresponding frame using NumPy and a hypothetical event decoding utility.
+  </p>
+  <div class="code-block">
+<pre><code>import numpy as np
+from event_utils import decode_event_dat
+
+# paths to a sample
+rgb_path = "data/rgb/000001.png"
+event_path = "data/event/000001.dat"
+bbox_path = "data/labels/000001.npy"
+
+# load RGB image
+rgb_frame = plt.imread(rgb_path)
+
+# decode asynchronous event stream (returns x,y,t,polarity)
+events = decode_event_dat(event_path)
+
+# load bounding boxes
+bboxes = np.load(bbox_path)  # shape (N, 5) -> [x1, y1, x2, y2, class_id]
+
+print(f"Loaded {len(events)} events and {len(bboxes)} bounding boxes")
+</code></pre>
+  </div>
+  <h2>Citation</h2>
+  <p>
+    If you use the PEOD dataset in your research, please cite our accompanying paper
+    (anonymised for double‑blind review):
+  </p>
+  <div class="code-block">
+<pre><code>@inproceedings{PEOD2025,
+  title     = {Pixel‑aligned Event‑RGB Object Detection under Challenging Scenarios},
+  author    = {Anonymous},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  year      = {2025}
+}
+</code></pre>
+  </div>
+  <footer>
+    <p>
+      This site is distributed under the <a href="https://choosealicense.com/licenses/mit/">MIT License</a>.
+    </p>
+  </footer>
+</body>
+</html>
