@@ -1,3 +1,95 @@
 title: "PEOD Dataset"
-description: "Pixel‑aligned Event‑RGB dataset for challenging object detection"
+description: "Pixel-aligned Event-RGB dataset for challenging object detection. First large-scale multimodal benchmark combining high-resolution event streams and RGB imagery."
 theme: jekyll-theme-cayman
+
+# Site settings
+url: "https://peod-dataset.github.io"
+baseurl: "/PEOD-dataset"
+author: "PEOD Dataset Team"
+email: "contact@peod-dataset.org"
+
+# SEO and social media settings
+lang: en
+locale: en_US
+twitter:
+  username: peod_dataset
+  card: summary_large_image
+facebook:
+  app_id: "PEOD Dataset"
+  publisher: "PEOD Dataset"
+social:
+  name: "PEOD Dataset"
+  links:
+    - https://github.com/PEOD-dataset/PEOD-dataset
+
+# Google Analytics (when available)
+# google_analytics: UA-XXXXXXXX-X
+
+# GitHub settings
+github:
+  repository_name: PEOD-dataset
+  repository_url: https://github.com/PEOD-dataset/PEOD-dataset
+  owner_name: PEOD-dataset
+
+# Jekyll settings
+markdown: kramdown
+highlighter: rouge
+sass:
+  style: compressed
+  sass_dir: _sass
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude files from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
+  - .sass-cache
+  - .jekyll-cache
+
+# Include files
+include:
+  - _pages
+  - assets
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+    values:
+      image: /datasetshow.png
+
+# Custom variables
+dataset:
+  name: "PEOD"
+  full_name: "Pixel-aligned Event-RGB Object Detection Dataset"
+  version: "1.0"
+  release_year: 2025
+  sequences: "120+"
+  frames: "72k"
+  annotations: "340k"
+  resolution: "1280×720"
+  classes:
+    - car
+    - bus
+    - truck
+    - two-wheeler
+    - three-wheeler
+    - person

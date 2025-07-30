@@ -3,201 +3,793 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PEOD Dataset</title>
+  <title>PEOD Dataset - Pixel-aligned Event-RGB Object Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 20px;
-      line-height: 1.6;
-      color: #333;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h1, h2 {
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      color: #333;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('datasetshow.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Glass morphism navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Hero section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      max-width: 800px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Content sections */
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      text-align: center;
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      transform: scale(1);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: scale(1.05);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
       color: #2c3e50;
     }
+
+    /* Table styling */
     table {
-      border-collapse: collapse;
       width: 100%;
-      margin: 20px 0;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 8px;
+
+    table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 1rem;
+      font-weight: 600;
       text-align: left;
     }
-    table th {
-      background-color: #f2f2f2;
+
+    table td {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
     }
+
+    table tr:hover {
+      background: #f8f9fa;
+    }
+
+    /* Code block styling */
     .code-block {
-      background: #f8f8f8;
-      border: 1px solid #eaeaea;
-      padding: 10px;
-      font-family: "Courier New", monospace;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 2rem;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
       overflow-x: auto;
+      margin: 2rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
+
+    .code-block pre {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Image gallery */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .image-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .image-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .image-card .caption {
+      padding: 1.5rem;
+      font-size: 0.95rem;
       color: #666;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      color: #fff;
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .footer p {
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.8s ease;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .hero-content {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Scroll animations */
+    .section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-  <h1>PEOD: Pixel‑aligned RGB‑Event Object Detection Dataset</h1>
-  <p>
-    The <strong>PEOD dataset</strong> provides the first large‑scale multimodal benchmark designed to evaluate
-    object detection algorithms in challenging driving scenarios. By pairing high‑resolution
-    conventional images with temporally aligned event streams, PEOD allows researchers to
-    investigate how temporal contrast information can complement intensity measurements
-    under extreme lighting and motion.
-  </p>
-  <h2>Dataset Overview</h2>
-  <p>
-    PEOD comprises over <strong>120 fully synchronised driving sequences</strong>, yielding more than
-    <strong>72&nbsp;000</strong> paired frames and <strong>340&nbsp;000</strong> bounding boxes across six common road‑user
-    classes (car, bus, truck, two‑wheeler, three‑wheeler and person). All sequences are
-    recorded at <strong>1280&nbsp;×&nbsp;720</strong> resolution and 30&nbsp;Hz, with microsecond‑level synchronisation between
-    the RGB and event cameras. Approximately 60&nbsp;% of the sequences are captured in low‑light,
-    over‑exposed or high‑speed conditions, offering a comprehensive test bed for evaluating
-    robustness to illumination extremes and motion blur.
-  </p>
-  <table>
-    <thead>
-      <tr>
-        <th>Subset</th>
-        <th>Frames</th>
-        <th>Bounding boxes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Training</td>
-        <td>~57&nbsp;000</td>
-        <td>270&nbsp;k</td>
-      </tr>
-      <tr>
-        <td>Test</td>
-        <td>~15&nbsp;000</td>
-        <td>70&nbsp;k</td>
-      </tr>
-      <tr>
-        <td><em>Total</em></td>
-        <td>72&nbsp;k</td>
-        <td>340&nbsp;k</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-content">
+      <a href="#" class="logo">PEOD Dataset</a>
+      <ul class="nav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#benchmark">Benchmark</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#citation">Citation</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <h2>Dataset Visualizations</h2>
-  <p>
-    The figures below illustrate our dual‑camera system setup and key statistics of the PEOD dataset.
-  </p>
-  <div>
-    <figure style="margin-bottom:20px;">
-      <img src="camera_preview.png" alt="Camera system setup" style="max-width:100%; height:auto;">
-      <figcaption>(a) Dual‑camera coaxial optical system used for data collection.</figcaption>
-    </figure>
-    <figure>
-      <img src="datasta_preview.png" alt="Dataset statistics and sample visualisations" style="max-width:100%; height:auto;">
-      <figcaption>(b) Dataset statistics and sample visualisations.</figcaption>
-    </figure>
-  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>PEOD Dataset</h1>
+      <p class="subtitle">Pixel-aligned Event-RGB Object Detection under Challenging Scenarios</p>
+      <p>The first large-scale multimodal benchmark for robust object detection combining high-resolution event streams and RGB imagery</p>
+      <div class="cta-buttons">
+        <a href="#download" class="btn btn-primary">
+          <i class="fas fa-download"></i>
+          Download Dataset
+        </a>
+        <a href="#overview" class="btn btn-secondary">
+          <i class="fas fa-info-circle"></i>
+          Learn More
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <h2>Benchmark Results</h2>
-  <p>
-    We evaluate a diverse suite of detectors on the PEOD dataset, including event‑only models,
-    RGB‑only models and fusion architectures that combine both modalities. The mean Average
-    Precision (mAP<sub>50:95</sub>) scores summarised below highlight the complementary nature of
-    events and frames: fusion approaches consistently outperform single‑sensor baselines on
-    challenging scenes.
-  </p>
-  <table>
-    <thead>
-      <tr>
-        <th>Modality</th>
-        <th>Method</th>
-        <th>mAP<sub>50:95</sub></th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Event‑only</td>
-        <td>SMamba</td>
-        <td>22.9&nbsp;%</td>
-        <td>State‑space model; highest event accuracy</td>
-      </tr>
-      <tr>
-        <td>RGB‑only</td>
-        <td>YOLOv8</td>
-        <td>19.3&nbsp;%</td>
-        <td>Best performing frame‑based baseline</td>
-      </tr>
-      <tr>
-        <td>Fusion</td>
-        <td>EOLO</td>
-        <td>24.2&nbsp;%</td>
-        <td>High‑efficiency fusion network; top overall performer</td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Usage Example</h2>
-  <p>
-    The dataset is organised into training and test splits. Each sample consists of a
-    synchronised RGB frame, an event stream and a set of bounding box annotations. Below
-    is a simple Python snippet demonstrating how to load an event stream and its
-    corresponding frame using NumPy and a hypothetical event decoding utility.
-  </p>
-  <div class="code-block">
-<pre><code>import numpy as np
-from event_utils import decode_event_dat
+  <!-- Overview Section -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="glass-card">
+        <h2 class="section-title">Dataset Overview</h2>
+        <p class="section-subtitle">
+          PEOD provides synchronized high-resolution event streams and RGB images for object detection under extreme conditions
+        </p>
 
-# paths to a sample
-rgb_path = "data/rgb/000001.png"
-event_path = "data/event/000001.dat"
-bbox_path = "data/labels/000001.npy"
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">120+</span>
+            <span class="stat-label">Driving Sequences</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">340K</span>
+            <span class="stat-label">Bounding Boxes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">72K</span>
+            <span class="stat-label">Frame Pairs</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">1280×720</span>
+            <span class="stat-label">Resolution</span>
+          </div>
+        </div>
 
-# load RGB image
-rgb_frame = plt.imread(rgb_path)
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-camera"></i>
+            </div>
+            <h3 class="feature-title">High-Resolution Data</h3>
+            <p>1280×720 pixel-aligned event streams and RGB frames captured using a coaxial dual-camera system</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-road"></i>
+            </div>
+            <h3 class="feature-title">Diverse Environments</h3>
+            <p>Urban, suburban and tunnel scenes with 57% of data collected under challenging conditions</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-tags"></i>
+            </div>
+            <h3 class="feature-title">Rich Annotations</h3>
+            <p>Six object classes: car, bus, truck, two-wheeler, three-wheeler and person</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h3 class="feature-title">High Dynamic Range</h3>
+            <p>>87 dB HDR enabling robust perception under extreme illumination</p>
+          </div>
+        </div>
 
-# decode asynchronous event stream (returns x,y,t,polarity)
-events = decode_event_dat(event_path)
+        <table>
+          <thead>
+            <tr>
+              <th>Split</th>
+              <th>Frames</th>
+              <th>Bounding Boxes</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Training</td>
+              <td>~57,000</td>
+              <td>270k</td>
+              <td>Diverse illumination & motion conditions</td>
+            </tr>
+            <tr>
+              <td>Test</td>
+              <td>~15,000</td>
+              <td>70k</td>
+              <td>Held-out sequences for benchmarking</td>
+            </tr>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td><strong>72k</strong></td>
+              <td><strong>340k</strong></td>
+              <td>Complete dataset statistics</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-# load bounding boxes
-bboxes = np.load(bbox_path)  # shape (N, 5) -> [x1, y1, x2, y2, class_id]
+  <!-- Visualizations Section -->
+  <section class="section">
+    <div class="container">
+      <div class="glass-card">
+        <h2 class="section-title">Dataset Visualizations</h2>
+        <p class="section-subtitle">
+          Explore our dual-camera system setup and key dataset statistics
+        </p>
+        
+        <div class="image-gallery">
+          <div class="image-card">
+            <img src="camera_preview.png" alt="Camera system setup">
+            <div class="caption">
+              <strong>Dual-camera coaxial optical system</strong><br>
+              Our custom hardware setup used for synchronized data collection
+            </div>
+          </div>
+          <div class="image-card">
+            <img src="datasta_preview.png" alt="Dataset statistics">
+            <div class="caption">
+              <strong>Dataset statistics and sample visualizations</strong><br>
+              Comprehensive analysis of collected data and sample annotations
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-print(f"Loaded {len(events)} events and {len(bboxes)} bounding boxes")
-</code></pre>
-  </div>
-  <h2>Citation</h2>
-  <p>
-    If you use the PEOD dataset in your research, please cite our accompanying paper
-    (anonymised for double‑blind review):
-  </p>
-  <div class="code-block">
-<pre><code>@inproceedings{PEOD2025,
-  title     = {Pixel‑aligned Event‑RGB Object Detection under Challenging Scenarios},
+  <!-- Benchmark Section -->
+  <section id="benchmark" class="section">
+    <div class="container">
+      <div class="glass-card">
+        <h2 class="section-title">Benchmark Results</h2>
+        <p class="section-subtitle">
+          Evaluation of diverse detection models across different modalities
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Modality</th>
+              <th>Method</th>
+              <th>mAP<sub>50:95</sub></th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Event-only</strong></td>
+              <td>SMamba</td>
+              <td><strong>22.9%</strong></td>
+              <td>State-space model; highest event accuracy</td>
+            </tr>
+            <tr>
+              <td><strong>RGB-only</strong></td>
+              <td>YOLOv8</td>
+              <td><strong>19.3%</strong></td>
+              <td>Best performing frame-based baseline</td>
+            </tr>
+            <tr>
+              <td><strong>Fusion</strong></td>
+              <td>EOLO</td>
+              <td><strong>24.2%</strong></td>
+              <td>High-efficiency fusion network; top performer</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top: 2rem; color: #666; font-style: italic;">
+          Fusion approaches consistently outperform single-sensor baselines, highlighting the complementary nature of event and RGB data.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Usage Example Section -->
+  <section class="section">
+    <div class="container">
+      <div class="glass-card">
+        <h2 class="section-title">Usage Example</h2>
+        <p class="section-subtitle">
+          Simple Python code to get started with the PEOD dataset
+        </p>
+
+        <div class="code-block">
+          <pre><code>import numpy as np
+from pathlib import Path
+import cv2
+
+# Paths to frames, events and annotation file
+frame_dir = Path('PEOD/train/sequence_001/rgb')
+event_file = Path('PEOD/train/sequence_001/events.dat')
+anno_file = Path('PEOD/train/sequence_001/boxes.npy')
+
+# Load one RGB frame
+img = cv2.imread(str(frame_dir / '000000.png'))
+
+# Load bounding boxes (N × 5: frame_idx, class_id, x, y, w, h)
+boxes = np.load(anno_file, allow_pickle=True)
+
+# Draw first box on the first frame
+first_box = boxes[0]
+frame_idx, cls_id, x, y, w, h = first_box
+cv2.rectangle(img, (int(x), int(y)), (int(x+w), int(y+h)), (0, 255, 0), 2)
+
+print(f"Loaded {len(boxes)} annotations for sequence")
+cv2.imshow('PEOD Example', img)
+cv2.waitKey(0)</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section id="download" class="section">
+    <div class="container">
+      <div class="glass-card">
+        <h2 class="section-title">Dataset Download</h2>
+        <p class="section-subtitle">
+          The PEOD dataset will be publicly released soon
+        </p>
+        
+        <div style="text-align: center; padding: 2rem 0;">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 16px; display: inline-block; margin-bottom: 2rem;">
+            <i class="fas fa-clock" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+            <h3>Coming Soon</h3>
+            <p>Download links will be provided here once the dataset is available</p>
+          </div>
+        </div>
+
+        <p style="color: #666; text-align: center;">
+          Data will be provided in RAW and DAT formats with corresponding annotations in NumPy format. 
+          Check back here for download links and documentation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Citation Section -->
+  <section id="citation" class="section">
+    <div class="container">
+      <div class="glass-card">
+        <h2 class="section-title">Citation</h2>
+        <p class="section-subtitle">
+          If you use PEOD in your research, please cite our paper
+        </p>
+
+        <div class="code-block">
+          <pre><code>@inproceedings{PEOD2025,
+  title     = {PEOD: Pixel-aligned High-Resolution Event-RGB Dataset for Challenging Object Detection},
   author    = {Anonymous},
   booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
   year      = {2025}
-}
-</code></pre>
-  </div>
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <h2>Dataset Download</h2>
-  <p>
-    The PEOD dataset will be released publicly soon. A download link will be provided here once the dataset is available.
-  </p>
-  <footer>
-    <p>
-      This site is distributed under the <a href="https://choosealicense.com/licenses/mit/">MIT License</a>.
-    </p>
-    <p>
-      For more information about the data collection hardware and statistics, see the
-      <a href="camera.pdf">camera system description (PDF)</a> and
-      <a href="datasta.pdf">dataset statistics (PDF)</a> available in this repository.
-    </p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <h3>PEOD Dataset</h3>
+        <p>Advancing object detection research through multimodal event-RGB data</p>
+        <p style="margin-top: 2rem;">
+          <a href="camera.pdf" style="color: #667eea; text-decoration: none; margin-right: 2rem;">
+            <i class="fas fa-file-pdf"></i> Camera System Details
+          </a>
+          <a href="datasta.pdf" style="color: #667eea; text-decoration: none;">
+            <i class="fas fa-chart-bar"></i> Dataset Statistics
+          </a>
+        </p>
+        <p style="margin-top: 1rem; opacity: 0.7;">
+          © 2025 PEOD Dataset. Released under MIT License.
+        </p>
+      </div>
+    </div>
   </footer>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.color = '#333';
+      } else {
+        navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+        navbar.style.color = '#fff';
+      }
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Add loading animation
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
+    });
+  </script>
 </body>
 </html>
