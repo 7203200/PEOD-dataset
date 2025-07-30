@@ -314,20 +314,14 @@
       line-height: 1.6;
     }
 
-    /* Image gallery */
-    .image-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-
+    /* Single image card styling */
     .image-card {
       background: #fff;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       transition: all 0.3s ease;
+      margin-bottom: 3rem;
     }
 
     .image-card:hover {
@@ -343,9 +337,15 @@
 
     .image-card .caption {
       padding: 1.5rem;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #666;
       line-height: 1.6;
+    }
+
+    .image-card .caption strong {
+      color: #2c3e50;
+      display: block;
+      margin-bottom: 0.5rem;
     }
 
     /* Footer */
@@ -370,6 +370,23 @@
     .footer p {
       margin-bottom: 0.5rem;
       opacity: 0.8;
+    }
+
+    /* Highlight box for important info */
+    .highlight-box {
+      background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
+      border: 1px solid #ffb366;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .highlight-box .highlight-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #e67e22;
+      display: block;
     }
 
     /* Animations */
@@ -414,10 +431,6 @@
       .feature-grid {
         grid-template-columns: 1fr;
       }
-
-      .image-gallery {
-        grid-template-columns: 1fr;
-      }
     }
 
     /* Scroll animations */
@@ -440,6 +453,8 @@
       <a href="#" class="logo">PEOD Dataset</a>
       <ul class="nav-links">
         <li><a href="#overview">Overview</a></li>
+        <li><a href="#camera-system">Camera System</a></li>
+        <li><a href="#visualizations">Visualizations</a></li>
         <li><a href="#benchmark">Benchmark</a></li>
         <li><a href="#download">Download</a></li>
         <li><a href="#citation">Citation</a></li>
@@ -452,7 +467,7 @@
     <div class="hero-content">
       <h1>PEOD Dataset</h1>
       <p class="subtitle">Pixel-aligned Event-RGB Object Detection under Challenging Scenarios</p>
-      <p>The first large-scale multimodal benchmark for robust object detection combining high-resolution event streams and RGB imagery</p>
+      <p>The first large-scale multimodal benchmark providing synchronized high-resolution event streams and RGB images for object detection under extreme conditions</p>
       <div class="cta-buttons">
         <a href="#download" class="btn btn-primary">
           <i class="fas fa-download"></i>
@@ -472,25 +487,38 @@
       <div class="glass-card">
         <h2 class="section-title">Dataset Overview</h2>
         <p class="section-subtitle">
-          PEOD provides synchronized high-resolution event streams and RGB images for object detection under extreme conditions
+          PEOD addresses critical limitations in existing Event-RGB datasets: sparse coverage of extreme conditions and low spatial resolution (≤640×480)
         </p>
+
+        <div class="highlight-box">
+          <span class="highlight-number">57%</span>
+          <p>of data captured under challenging conditions (low-light, overexposure, high-speed motion)</p>
+        </div>
 
         <div class="stats-grid">
           <div class="stat-card">
             <span class="stat-number">120+</span>
-            <span class="stat-label">Driving Sequences</span>
+            <span class="stat-label">Synchronized Sequences</span>
           </div>
           <div class="stat-card">
             <span class="stat-number">340K</span>
-            <span class="stat-label">Bounding Boxes</span>
+            <span class="stat-label">Verified Bounding Boxes</span>
           </div>
           <div class="stat-card">
             <span class="stat-number">72K</span>
-            <span class="stat-label">Frame Pairs</span>
+            <span class="stat-label">High-Quality Data Pairs</span>
           </div>
           <div class="stat-card">
             <span class="stat-number">1280×720</span>
-            <span class="stat-label">Resolution</span>
+            <span class="stat-label">High Resolution</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">>87dB</span>
+            <span class="stat-label">High Dynamic Range</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">30Hz</span>
+            <span class="stat-label">Annotation Frequency</span>
           </div>
         </div>
 
@@ -499,29 +527,29 @@
             <div class="feature-icon">
               <i class="fas fa-camera"></i>
             </div>
-            <h3 class="feature-title">High-Resolution Data</h3>
-            <p>1280×720 pixel-aligned event streams and RGB frames captured using a coaxial dual-camera system</p>
+            <h3 class="feature-title">Coaxial Dual-Camera System</h3>
+            <p>True pixel-level spatial alignment and microsecond-level temporal synchronization using beam-splitter optical system</p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">
               <i class="fas fa-road"></i>
             </div>
-            <h3 class="feature-title">Diverse Environments</h3>
-            <p>Urban, suburban and tunnel scenes with 57% of data collected under challenging conditions</p>
+            <h3 class="feature-title">Challenging Environments</h3>
+            <p>Urban, suburban, and tunnel environments with 60% data under extreme conditions (low-light, overexposed, high-velocity)</p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">
               <i class="fas fa-tags"></i>
             </div>
-            <h3 class="feature-title">Rich Annotations</h3>
-            <p>Six object classes: car, bus, truck, two-wheeler, three-wheeler and person</p>
+            <h3 class="feature-title">Six Object Classes</h3>
+            <p>Meticulously verified annotations for car, bus, truck, two-wheeler, three-wheeler, and person</p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">
-              <i class="fas fa-sun"></i>
+              <i class="fas fa-clock"></i>
             </div>
-            <h3 class="feature-title">High Dynamic Range</h3>
-            <p>>87 dB HDR enabling robust perception under extreme illumination</p>
+            <h3 class="feature-title">Microsecond Precision</h3>
+            <p>Hardware signal generator ensures microsecond-level synchronization between RGB and event cameras</p>
           </div>
         </div>
 
@@ -529,29 +557,33 @@
           <thead>
             <tr>
               <th>Split</th>
+              <th>Sequences</th>
               <th>Frames</th>
               <th>Bounding Boxes</th>
-              <th>Notes</th>
+              <th>Conditions</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Training</td>
+              <td>~85</td>
               <td>~57,000</td>
               <td>270k</td>
               <td>Diverse illumination & motion conditions</td>
             </tr>
             <tr>
               <td>Test</td>
+              <td>~35</td>
               <td>~15,000</td>
               <td>70k</td>
               <td>Held-out sequences for benchmarking</td>
             </tr>
             <tr>
               <td><strong>Total</strong></td>
+              <td><strong>120+</strong></td>
               <td><strong>72k</strong></td>
               <td><strong>340k</strong></td>
-              <td>Complete dataset statistics</td>
+              <td>Complete dataset coverage</td>
             </tr>
           </tbody>
         </table>
@@ -559,29 +591,88 @@
     </div>
   </section>
 
-  <!-- Visualizations Section -->
-  <section class="section">
+  <!-- Camera System Section -->
+  <section id="camera-system" class="section">
     <div class="container">
       <div class="glass-card">
-        <h2 class="section-title">Dataset Visualizations</h2>
+        <h2 class="section-title">Dual-Camera Acquisition System</h2>
         <p class="section-subtitle">
-          Explore our dual-camera system setup and key dataset statistics
+          Our custom coaxial optical system ensures pixel-perfect alignment and precise synchronization
         </p>
         
-        <div class="image-gallery">
-          <div class="image-card">
-            <img src="camera_preview.png" alt="Camera system setup">
-            <div class="caption">
-              <strong>Dual-camera coaxial optical system</strong><br>
-              Our custom hardware setup used for synchronized data collection
-            </div>
+        <div class="image-card">
+          <img src="camera_preview.png" alt="Coaxial dual-camera system setup">
+          <div class="caption">
+            <strong>Coaxial Imaging System</strong>
+            Our acquisition system utilizes a JCOPTIX OSB25R55-T5 non-polarizing plate beam splitter (50:50 split ratio) and MCC1-1S 10mm coaxial cube. The system comprises a Prophesee EVK4 HD event camera (1280×720) and Hikvision MV-CS050-10UC industrial RGB camera (2448×2048, 60fps), both equipped with identical Hikvision 25mm C-mount fixed-focal-length lenses for consistent imaging characteristics.
           </div>
-          <div class="image-card">
-            <img src="datasta_preview.png" alt="Dataset statistics">
-            <div class="caption">
-              <strong>Dataset statistics and sample visualizations</strong><br>
-              Comprehensive analysis of collected data and sample annotations
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-sync"></i>
             </div>
+            <h3 class="feature-title">Hardware Synchronization</h3>
+            <p>Single square-wave signal generator provides hardware trigger pulses to both cameras for microsecond-level accuracy</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-align-center"></i>
+            </div>
+            <h3 class="feature-title">Pixel-Level Alignment</h3>
+            <p>Shared optical path enables true pixel-level spatial alignment through standard stereo rectification</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-cog"></i>
+            </div>
+            <h3 class="feature-title">Identical Optics</h3>
+            <p>Both cameras use identical lenses and fixed aperture settings to eliminate focal length and distortion discrepancies</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visualizations Section -->
+  <section id="visualizations" class="section">
+    <div class="container">
+      <div class="glass-card">
+        <h2 class="section-title">Dataset Statistics & Visualizations</h2>
+        <p class="section-subtitle">
+          Comprehensive analysis of data distribution and sample annotations from challenging scenarios
+        </p>
+        
+        <div class="image-card">
+          <img src="datasta_preview.png" alt="Dataset statistics and sample visualizations">
+          <div class="caption">
+            <strong>Dataset Statistics and Challenging Scenarios</strong>
+            The figure shows the temporal distribution of our dataset with 57.1% captured under challenging illumination conditions, alongside sample aligned Event-RGB pairs from diverse driving scenarios. Our data includes urban roads, suburban areas, complex intersections, underpasses, tunnels, and highways captured continuously from 04:00 to 24:00, covering the full spectrum of lighting conditions from dawn to nighttime.
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3 class="feature-title">Illumination Analysis</h3>
+            <p>Quantitative classification using under-exposure (S_LL) and over-exposure (S_OE) scores based on pixel saturation</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-moon"></i>
+            </div>
+            <h3 class="feature-title">Low-Light Conditions</h3>
+            <p>Extensive coverage of challenging scenarios where conventional cameras fail but event cameras excel</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h3 class="feature-title">Overexposure Scenarios</h3>
+            <p>High dynamic range scenes demonstrating the >87dB HDR advantage of event cameras over RGB sensors</p>
           </div>
         </div>
       </div>
@@ -594,7 +685,7 @@
       <div class="glass-card">
         <h2 class="section-title">Benchmark Results</h2>
         <p class="section-subtitle">
-          Evaluation of diverse detection models across different modalities
+          Comprehensive evaluation of RGB-only, Event-only, and Event+RGB fusion detectors
         </p>
 
         <table>
@@ -603,6 +694,9 @@
               <th>Modality</th>
               <th>Method</th>
               <th>mAP<sub>50:95</sub></th>
+              <th>mAP<sub>50</sub></th>
+              <th>mAP<sub>75</sub></th>
+              <th>Params(M)</th>
               <th>Notes</th>
             </tr>
           </thead>
@@ -611,26 +705,80 @@
               <td><strong>Event-only</strong></td>
               <td>SMamba</td>
               <td><strong>22.9%</strong></td>
+              <td>43.8%</td>
+              <td>19.9%</td>
+              <td>23.7</td>
               <td>State-space model; highest event accuracy</td>
+            </tr>
+            <tr>
+              <td><strong>Event-only</strong></td>
+              <td>RVT</td>
+              <td>17.6%</td>
+              <td>31.9%</td>
+              <td>17.0%</td>
+              <td>4.4</td>
+              <td>Transformer-based approach</td>
             </tr>
             <tr>
               <td><strong>RGB-only</strong></td>
               <td>YOLOv8</td>
               <td><strong>19.3%</strong></td>
+              <td>31.8%</td>
+              <td>18.8%</td>
+              <td>11.1</td>
               <td>Best performing frame-based baseline</td>
+            </tr>
+            <tr>
+              <td><strong>RGB-only</strong></td>
+              <td>YOLOX</td>
+              <td>17.4%</td>
+              <td>37.0%</td>
+              <td>14.2%</td>
+              <td>8.9</td>
+              <td>Strong single-stage detector</td>
             </tr>
             <tr>
               <td><strong>Fusion</strong></td>
               <td>EOLO</td>
               <td><strong>24.2%</strong></td>
-              <td>High-efficiency fusion network; top performer</td>
+              <td>40.3%</td>
+              <td>26.1%</td>
+              <td>46.2</td>
+              <td>SNN + CSPDN fusion; top performer</td>
+            </tr>
+            <tr>
+              <td><strong>Fusion</strong></td>
+              <td>RENet</td>
+              <td>22.5%</td>
+              <td>39.6%</td>
+              <td>21.3%</td>
+              <td>37.7</td>
+              <td>ResNet-101 based fusion</td>
             </tr>
           </tbody>
         </table>
 
-        <p style="margin-top: 2rem; color: #666; font-style: italic;">
-          Fusion approaches consistently outperform single-sensor baselines, highlighting the complementary nature of event and RGB data.
-        </p>
+        <div class="highlight-box">
+          <p><strong>Key Finding:</strong> Fusion models consistently outperform single-modality baselines, with EOLO achieving 24.2% mAP<sub>50:95</sub>, surpassing the best Event-only model by +1.3pp and the best RGB baseline by +4.9pp.</p>
+        </div>
+
+        <h3 style="margin-top: 3rem; margin-bottom: 1rem; color: #2c3e50;">Condition-Specific Performance</h3>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3 class="feature-title">Extreme Illumination</h3>
+            <p>Event-only methods excel with SMamba achieving 19.8% mAP, significantly outperforming RGB-only (13.0%) and fusion methods</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h3 class="feature-title">Normal Conditions</h3>
+            <p>Fusion methods dominate with EOLO reaching 43.2% mAP, exceeding RGB-only by +8.5pp and Event-only by +22.5pp</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -669,6 +817,10 @@ print(f"Loaded {len(boxes)} annotations for sequence")
 cv2.imshow('PEOD Example', img)
 cv2.waitKey(0)</code></pre>
         </div>
+
+        <p style="color: #666; margin-top: 2rem;">
+          <strong>Data Formats:</strong> Event data is provided in both RAW and DAT formats, while annotations are available in NumPy format for easy integration with existing workflows.
+        </p>
       </div>
     </div>
   </section>
@@ -679,21 +831,40 @@ cv2.waitKey(0)</code></pre>
       <div class="glass-card">
         <h2 class="section-title">Dataset Download</h2>
         <p class="section-subtitle">
-          The PEOD dataset will be publicly released soon
+          The PEOD dataset will be publicly released upon paper acceptance
         </p>
         
         <div style="text-align: center; padding: 2rem 0;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 16px; display: inline-block; margin-bottom: 2rem;">
-            <i class="fas fa-clock" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+            <i class="fas fa-hourglass-half" style="font-size: 3rem; margin-bottom: 1rem;"></i>
             <h3>Coming Soon</h3>
-            <p>Download links will be provided here once the dataset is available</p>
+            <p>Dataset will be released publicly upon paper acceptance</p>
           </div>
         </div>
 
-        <p style="color: #666; text-align: center;">
-          Data will be provided in RAW and DAT formats with corresponding annotations in NumPy format. 
-          Check back here for download links and documentation.
-        </p>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <h3 class="feature-title">Multiple Formats</h3>
+            <p>Event data in RAW and DAT formats, annotations in NumPy format</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-download"></i>
+            </div>
+            <h3 class="feature-title">Easy Access</h3>
+            <p>Download links and documentation will be provided here</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="feature-title">Code & Tools</h3>
+            <p>Evaluation scripts and baseline implementations included</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -704,17 +875,26 @@ cv2.waitKey(0)</code></pre>
       <div class="glass-card">
         <h2 class="section-title">Citation</h2>
         <p class="section-subtitle">
-          If you use PEOD in your research, please cite our paper
+          If you use PEOD in your research, please cite our paper (currently under review)
         </p>
 
+        <div class="highlight-box">
+          <p><strong>Status:</strong> Paper submitted to AAAI 2025 (currently under peer review)</p>
+        </div>
+
         <div class="code-block">
-          <pre><code>@inproceedings{PEOD2025,
+          <pre><code>@article{PEOD2025,
   title     = {PEOD: Pixel-aligned High-Resolution Event-RGB Dataset for Challenging Object Detection},
-  author    = {Anonymous},
-  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
-  year      = {2025}
+  author    = {[Authors to be revealed upon acceptance]},
+  journal   = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  year      = {2025},
+  note      = {Under review}
 }</code></pre>
         </div>
+
+        <p style="color: #666; margin-top: 2rem; text-align: center;">
+          <em>Full citation details will be updated upon paper acceptance</em>
+        </p>
       </div>
     </div>
   </section>
